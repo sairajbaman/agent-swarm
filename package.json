@@ -1,0 +1,44 @@
+{
+  "name": "kiro-agent-swarm",
+  "version": "1.0.0",
+  "description": "Make Kiro CLI 10x smarter. Self-organizing multi-agent swarm — one install, zero config.",
+  "bin": {
+    "kiro-swarm": "./bin/cli.js"
+  },
+  "scripts": {
+    "postinstall": "node bin/install.js"
+  },
+  "keywords": [
+    "kiro",
+    "kiro-cli",
+    "agent",
+    "swarm",
+    "multi-agent",
+    "ai",
+    "parallel",
+    "orchestrator",
+    "coding-agent",
+    "agent-swarm"
+  ],
+  "author": "sairajbaman",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sairajbaman/agent-swarm"
+  },
+  "homepage": "https://github.com/sairajbaman/agent-swarm#readme",
+  "bugs": {
+    "url": "https://github.com/sairajbaman/agent-swarm/issues"
+  },
+  "files": [
+    "bin/",
+    "agents/",
+    "prompts/",
+    "memory/",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

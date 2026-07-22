@@ -11,16 +11,36 @@ Inspired by [Kimi Agent Swarm](https://www.kimi.com/blog/agent-swarm) — Scale 
 ## ⚡ One-Line Install
 
 ```bash
+# NPM (recommended — works everywhere)
+npm install -g kiro-agent-swarm
+```
+
+That's it. Auto-installs everything. Next `kiro-cli chat` session uses the swarm.
+
+**Alternative methods:**
+
+```bash
 # Windows (PowerShell)
 irm https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.ps1 | iex
 
-# Or manual install:
+# Mac/Linux
+curl -fsSL https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.sh | bash
+
+# Manual
 git clone https://github.com/sairajbaman/kiro-agent-swarm.git
 cd kiro-agent-swarm
-.\install.ps1
+.\install.ps1   # Windows
+./install.sh    # Mac/Linux
 ```
 
 After install, **every new `kiro-cli chat` session** automatically uses the swarm. No commands to remember.
+
+**CLI commands:**
+```bash
+kiro-swarm status      # Check if swarm is active
+kiro-swarm install     # Reinstall/update
+kiro-swarm uninstall   # Remove swarm, restore default
+```
 
 ---
 
