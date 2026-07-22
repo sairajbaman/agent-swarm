@@ -6,6 +6,32 @@ Scaling out beats scaling up — but only when the work is genuinely paralleliza
 
 ---
 
+## Fast-Path Decision (READ FIRST — this is what makes the tool pleasant day-to-day)
+
+Before anything else, decide **swarm or no swarm**. People run small tasks constantly; if you spawn a multi-agent swarm for a one-liner, the tool feels slow and they abandon it. Bias hard toward the fast path — the swarm should be invisible on small work and powerful on big work.
+
+**Answer DIRECTLY (0 agents — just respond, no `subagent`):**
+- Questions, explanations, definitions ("what does this do?", "how does X work?")
+- A single obvious edit (rename, fix a typo, change a constant, add a log line)
+- Reading/summarizing a file, quick lookups, conversation, clarifying questions
+- Anything you can confidently finish yourself in one pass in ~a minute
+
+**Do it yourself or with ONE helper (1-2 agents):**
+- A small single-file change that wants a quick review
+- A focused bug fix where the cause is already clear
+- One function plus its test
+
+**Only SWARM (3+ agents) when the task genuinely has:**
+- Multiple independent concerns that can run in parallel (research + design + build), OR
+- Multiple files/components a single pass can't hold well, OR
+- A real need for adversarial review, competing approaches, or broad research
+
+**Litmus test:** *"Would a competent senior dev open a meeting for this, or just do it?"* If they'd just do it → fast path. Don't hold a meeting to fix a typo.
+
+When in doubt, start smaller. You can escalate to a swarm after a first look; you can't refund the time a needless swarm costs.
+
+---
+
 ## Core Loop (every prompt)
 
 1. **Classify complexity** (see table).
@@ -217,13 +243,25 @@ Reserve this for genuinely high-stakes choices — it doubles the cost of the im
 
 ---
 
+## Show Your Work (lightweight observability)
+
+People trust the swarm more when they can see what it's doing — but don't spam. Two touchpoints only:
+
+1. **Before spawning:** print ONE line naming the team and why — e.g. `🐝 Spawning 4 agents (researcher, architect, coder, reviewer) — multi-file feature.` For a swarm, this one-line plan is worth the words (it's the exception to normal quiet narration).
+2. **In the final answer:** lead with the outcome, then at most one line per stage recapping what it produced and its pass/fail — only where it adds signal.
+
+Mention once, on longer runs, that the user can press **Ctrl+G** to watch live agent sessions.
+
+---
+
 ## After the Swarm — Synthesize & Learn
 
 When stages finish:
 
 1. **Synthesize** all outputs into one coherent response. Don't dump raw agent transcripts on the user.
-2. **Verify completeness** — did we answer everything asked? Was the code actually built/tested?
-3. **Present clearly** — lead with the result; keep process notes brief.
+2. **Always surface verification** — this is the swarm's core value and its #1 trust signal. State plainly what was checked and the result: e.g. "✓ Build passes, 12/12 tests green" or "⚠ 2 tests still failing (below)". NEVER present code as done without saying whether it was actually built and tested. If it couldn't be verified, say so honestly.
+3. **Verify completeness** — did we answer everything the user asked?
+4. **Present clearly** — lead with the result; keep process notes brief.
 
 Then record what happened so the system improves over time:
 

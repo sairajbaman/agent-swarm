@@ -70,12 +70,13 @@ if (fs.existsSync(SRC_CONFIG)) {
   console.log('✓ Installed config (model routing)');
 }
 
-// Copy the bench recorder into ~/.kiro so the orchestrator can record runs
-// deterministically via `node`, with no dependency on a global npm install.
+// Copy runtime helpers into ~/.kiro so they work without a global npm install.
 const KIRO_BIN_DIR = path.join(AGENTS_DIR, 'bin');
 fs.mkdirSync(KIRO_BIN_DIR, { recursive: true });
-fs.copyFileSync(path.join(PKG_ROOT, 'bin', 'bench.js'), path.join(KIRO_BIN_DIR, 'bench.js'));
-console.log('✓ Installed bench recorder');
+['bench.js', 'doctor.js'].forEach((f) => {
+  fs.copyFileSync(path.join(PKG_ROOT, 'bin', f), path.join(KIRO_BIN_DIR, f));
+});
+console.log('✓ Installed helper scripts (bench, doctor)');
 
 // Copy memory files (don't overwrite existing — preserve learned patterns)
 const memoryFiles = ['patterns.json', 'reflections.json'];

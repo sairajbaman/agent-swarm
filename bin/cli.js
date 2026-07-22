@@ -27,6 +27,10 @@ switch (command) {
     require('./bench.js').main(process.argv.slice(3));
     break;
 
+  case 'doctor':
+    require('./doctor.js').main();
+    break;
+
   case 'help':
   case '--help':
   case '-h':
@@ -62,12 +66,12 @@ function uninstall() {
     console.log('✓ Removed system prompts');
   }
 
-  // Remove the bench recorder
-  const benchPath = path.join(AGENTS_DIR, 'bin', 'bench.js');
-  if (fs.existsSync(benchPath)) {
-    fs.unlinkSync(benchPath);
-    console.log('✓ Removed bench recorder');
-  }
+  // Remove helper scripts (bench, doctor)
+  ['bench.js', 'doctor.js'].forEach((f) => {
+    const fp = path.join(AGENTS_DIR, 'bin', f);
+    if (fs.existsSync(fp)) fs.unlinkSync(fp);
+  });
+  console.log('✓ Removed helper scripts');
 
   // Restore default agent
   try {
@@ -123,6 +127,7 @@ function help() {
   console.log('  kiro-swarm install     Install/reinstall the swarm');
   console.log('  kiro-swarm uninstall   Remove swarm, restore default agent');
   console.log('  kiro-swarm status      Check installation status');
+  console.log('  kiro-swarm doctor      Full health check + self-test');
   console.log('  kiro-swarm bench       Measure/track performance (record|report|reset)');
   console.log('  kiro-swarm help        Show this help');
   console.log('');
