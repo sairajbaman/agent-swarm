@@ -21,19 +21,30 @@ That's it. Auto-installs everything. Next `kiro-cli chat` session uses the swarm
 
 ```bash
 # Windows (PowerShell)
-irm https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/sairajbaman/agent-swarm/main/install.ps1 | iex
 
 # Mac/Linux
-curl -fsSL https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/sairajbaman/agent-swarm/main/install.sh | bash
 
 # Manual
-git clone https://github.com/sairajbaman/kiro-agent-swarm.git
-cd kiro-agent-swarm
+git clone https://github.com/sairajbaman/agent-swarm.git
+cd agent-swarm
 .\install.ps1   # Windows
 ./install.sh    # Mac/Linux
 ```
 
 After install, **every new `kiro-cli chat` session** automatically uses the swarm. No commands to remember.
+
+> **🔒 What the installer does (transparency note)**
+>
+> The install script only does three things:
+> 1. Copies agent configs and prompts into `~/.kiro/agents/`
+> 2. Initializes an empty memory directory at `~/.kiro/agents/memory/`
+> 3. Sets `swarm-orchestrator` as your default Kiro CLI agent
+>
+> That's it. **No network calls. No telemetry. No background processes.** Everything stays inside `~/.kiro/` and is fully reversible with `kiro-swarm uninstall` (or just delete `~/.kiro/agents/swarm-*`).
+>
+> You can audit the entire install: [`install.sh`](install.sh) (29 lines) | [`install.ps1`](install.ps1) (42 lines) | [`bin/install.js`](bin/install.js) (npm postinstall)
 
 **CLI commands:**
 ```bash
@@ -161,7 +172,7 @@ User Prompt (every prompt, every time)
 ## 📁 Project Structure
 
 ```
-kiro-agent-swarm/
+agent-swarm/
 ├── install.ps1              ← One-command installer (Windows)
 ├── install.sh               ← One-command installer (Mac/Linux)
 ├── uninstall.ps1            ← Clean removal
@@ -199,8 +210,8 @@ If you prefer manual setup:
 
 ```powershell
 # 1. Clone the repo
-git clone https://github.com/sairajbaman/kiro-agent-swarm.git
-cd kiro-agent-swarm
+git clone https://github.com/sairajbaman/agent-swarm.git
+cd agent-swarm
 
 # 2. Copy agents to Kiro's global directory
 Copy-Item -Path "agents\*" -Destination "$HOME\.kiro\agents\" -Force

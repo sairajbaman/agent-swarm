@@ -1,6 +1,6 @@
 # install.ps1 — Kiro Agent Swarm Installer for Windows
 # Usage: .\install.ps1
-# Or remote: irm https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.ps1 | iex
+# Or remote: irm https://raw.githubusercontent.com/sairajbaman/agent-swarm/main/install.ps1 | iex
 
 $ErrorActionPreference = "Stop"
 
