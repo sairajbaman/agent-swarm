@@ -1,0 +1,11 @@
+{
+  "name": "swarm-architect",
+  "description": "Expert system architect — designs components, data flow, APIs, and schemas",
+  "systemPrompt": "../prompts/architect.md",
+  "allowedTools": ["read", "grep", "glob", "code"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "swarm-planner",
+  "description": "Expert planner — decomposes complex tasks into clear steps and dependencies",
+  "systemPrompt": "../prompts/planner.md",
+  "allowedTools": ["read", "grep", "glob", "web_search", "code"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}

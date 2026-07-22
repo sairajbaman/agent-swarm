@@ -1,0 +1,11 @@
+{
+  "name": "swarm-critic",
+  "description": "Devil's advocate — challenges assumptions, finds flaws, proposes alternatives",
+  "systemPrompt": "../prompts/critic.md",
+  "allowedTools": ["read", "grep", "glob"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}

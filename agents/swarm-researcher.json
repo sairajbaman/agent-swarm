@@ -1,0 +1,11 @@
+{
+  "name": "swarm-researcher",
+  "description": "Expert research agent — searches, gathers information, and synthesizes findings",
+  "systemPrompt": "../prompts/researcher.md",
+  "allowedTools": ["web_search", "web_fetch", "read", "grep", "glob", "knowledge"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}

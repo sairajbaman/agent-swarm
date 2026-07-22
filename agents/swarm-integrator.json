@@ -1,0 +1,11 @@
+{
+  "name": "swarm-integrator",
+  "description": "Integration specialist — merges parallel outputs, resolves conflicts, produces unified result",
+  "systemPrompt": "../prompts/integrator.md",
+  "allowedTools": ["read", "write", "shell", "grep", "glob", "code"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "patterns": [],
+  "successfulPlans": [],
+  "failedPlans": [],
+  "bugPatterns": [],
+  "architectureTemplates": [],
+  "promptImprovements": [],
+  "benchmarks": {
+    "totalRuns": 0,
+    "avgAgentsPerTask": 0,
+    "avgConfidence": 0,
+    "successRate": 0,
+    "reviewLoopsTriggered": 0,
+    "consensusUsed": 0
+  },
+  "lastUpdated": null
+}

@@ -1,0 +1,11 @@
+{
+  "name": "swarm-reviewer",
+  "description": "Expert code reviewer — finds bugs, security issues, and quality problems",
+  "systemPrompt": "../prompts/reviewer.md",
+  "allowedTools": ["read", "grep", "glob", "shell", "code"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}

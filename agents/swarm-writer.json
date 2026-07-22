@@ -1,0 +1,11 @@
+{
+  "name": "swarm-writer",
+  "description": "Expert writer — produces documentation, reports, and polished prose",
+  "systemPrompt": "../prompts/writer.md",
+  "allowedTools": ["read", "write", "grep", "glob", "web_search"],
+  "toolsSettings": {
+    "crew": {
+      "availableAgents": []
+    }
+  }
+}
