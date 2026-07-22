@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Make Kiro CLI 10x smarter. Self-organizing multi-agent swarm — one install, zero config.",
   "bin": {
-    "kiro-swarm": "./bin/cli.js"
+    "kiro-swarm": "bin/cli.js"
   },
   "scripts": {
     "postinstall": "node bin/install.js"
@@ -24,7 +24,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sairajbaman/agent-swarm"
+    "url": "git+https://github.com/sairajbaman/agent-swarm.git"
   },
   "homepage": "https://github.com/sairajbaman/agent-swarm#readme",
   "bugs": {
