@@ -1,8 +1,8 @@
 # 🐝 Kiro Agent Swarm
 
-**Make Kiro CLI 10x smarter. One install. Zero config.**
+**Make Kiro CLI smarter — without slowing you down. One install. Zero config.**
 
-Type a prompt → the orchestrator analyzes it → spawns 5-20 parallel agents → they work simultaneously → a synthesizer delivers the result. Smarter than any single agent run.
+Type a prompt and the orchestrator right-sizes the work: everyday tasks are answered instantly, while genuinely complex ones fan out into parallel specialist agents that research, build, and **actually test** the result before handing it back. Fast on the common case, powerful when it counts.
 
 Inspired by [Kimi Agent Swarm](https://www.kimi.com/blog/agent-swarm) — Scale Out, Not Just Up.
 
@@ -50,6 +50,7 @@ After install, **every new `kiro-cli chat` session** automatically uses the swar
 **CLI commands:**
 ```bash
 kiro-swarm status      # Check if swarm is active
+kiro-swarm doctor      # Full health check + self-test
 kiro-swarm install     # Reinstall/update
 kiro-swarm uninstall   # Remove swarm, restore default
 kiro-swarm bench       # Measure performance: report | record | reset
@@ -132,11 +133,14 @@ User Prompt (every prompt, every time)
 
 | Feature | Description |
 |---------|-------------|
+| **Right-Sized** | Small/daily tasks answered instantly; multi-agent swarms spin up only when the work truly needs them — no overhead on the common case |
+| **Real Verification** | The reviewer actually runs your build & tests and reports pass/fail — code is proven, not just generated |
+| **Safety-First** | Confirms before destructive or irreversible actions instead of charging ahead |
 | **Self-Organizing** | Orchestrator invents the right team per task — no fixed templates |
 | **Parallel Execution** | Independent agents work simultaneously via DAG scheduler |
 | **Dynamic Agent Creation** | Creates custom specialists on the fly when needed |
 | **Blackboard Memory** | Shared state prevents duplicate work between agents |
-| **Confidence Scoring** | Every agent outputs 0-100% confidence. Low scores trigger re-runs |
+| **Confidence Scoring** | Every agent reports 0-100% confidence as a signal; the review loop is the enforced quality gate |
 | **Autonomous Loop** | Review → Improve → Review cycles until quality threshold met |
 | **Consensus Engine** | Competing solutions for high-stakes decisions |
 | **Workspace Aware** | Reads git status, dependencies, file structure before planning |
@@ -184,28 +188,28 @@ agent-swarm/
 ├── uninstall.ps1            ← Clean removal
 ├── README.md                ← This file
 ├── ARCHITECTURE.md          ← Detailed design doc
-├── ROADMAP.md               ← Future features roadmap
-├── agents/                  ← Agent configuration files
+├── ROADMAP.md               ← Feature roadmap + shipped log
+├── PUBLISHING.md            ← Maintainer publish/distribution guide
+├── bin/                     ← CLI + helpers
+│   ├── cli.js               ← `kiro-swarm` command
+│   ├── install.js           ← npm postinstall (wires into ~/.kiro)
+│   ├── bench.js             ← deterministic run recorder/reporter
+│   └── doctor.js            ← health check + self-test
+├── agents/                  ← Agent configuration files (9)
 │   ├── swarm-orchestrator.json
-│   ├── swarm-coder.json
-│   ├── swarm-researcher.json
-│   ├── swarm-architect.json
-│   ├── swarm-reviewer.json
-│   ├── swarm-critic.json
-│   ├── swarm-integrator.json
-│   ├── swarm-writer.json
-│   └── swarm-planner.json
-├── prompts/                 ← System prompts for each agent
-│   ├── orchestrator.md
-│   ├── coder.md
-│   ├── researcher.md
 │   └── ... (8 more)
+├── prompts/                 ← System prompts for each agent (9)
+│   ├── orchestrator.md
+│   └── ... (8 more)
+├── config/
+│   └── model-routing.json   ← Per-role model tier mapping
 ├── memory/                  ← Persistent learning
-│   ├── blackboard/          ← Shared state between agents
-│   ├── patterns.json        ← Learned team structures
+│   ├── blackboard/          ← Shared state between agents (per-run)
+│   ├── patterns.json        ← Learned structures + benchmarks
 │   └── reflections.json     ← Self-improvement notes
 └── examples/                ← Example swarm runs
-    └── coding-task.md
+    ├── coding-task.md
+    └── verified-feature.md  ← the verify-the-code adoption hook
 ```
 
 ---
