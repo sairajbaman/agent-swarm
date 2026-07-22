@@ -1,7 +1,7 @@
 #!/bin/bash
 # install.sh — Kiro Agent Swarm Installer for Mac/Linux
 # Usage: ./install.sh
-# Or remote: curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/kiro-agent-swarm/main/install.sh | bash
+# Or remote: curl -fsSL https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.sh | bash
 
 set -e
 

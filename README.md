@@ -12,10 +12,10 @@ Inspired by [Kimi Agent Swarm](https://www.kimi.com/blog/agent-swarm) — Scale 
 
 ```bash
 # Windows (PowerShell)
-irm https://raw.githubusercontent.com/YOUR_USERNAME/kiro-agent-swarm/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/sairajbaman/kiro-agent-swarm/main/install.ps1 | iex
 
 # Or manual install:
-git clone https://github.com/YOUR_USERNAME/kiro-agent-swarm.git
+git clone https://github.com/sairajbaman/kiro-agent-swarm.git
 cd kiro-agent-swarm
 .\install.ps1
 ```
@@ -179,7 +179,7 @@ If you prefer manual setup:
 
 ```powershell
 # 1. Clone the repo
-git clone https://github.com/YOUR_USERNAME/kiro-agent-swarm.git
+git clone https://github.com/sairajbaman/kiro-agent-swarm.git
 cd kiro-agent-swarm
 
 # 2. Copy agents to Kiro's global directory
