@@ -56,6 +56,27 @@ promptFiles.forEach(file => {
 });
 console.log(`✓ Installed ${promptFiles.length} system prompts`);
 
+// Copy config files (model routing) — don't overwrite existing so user tuning is preserved
+const SRC_CONFIG = path.join(PKG_ROOT, 'config');
+const CONFIG_DIR = path.join(AGENTS_DIR, 'config');
+if (fs.existsSync(SRC_CONFIG)) {
+  fs.mkdirSync(CONFIG_DIR, { recursive: true });
+  fs.readdirSync(SRC_CONFIG).filter(f => f.endsWith('.json')).forEach(file => {
+    const dest = path.join(CONFIG_DIR, file);
+    if (!fs.existsSync(dest)) {
+      fs.copyFileSync(path.join(SRC_CONFIG, file), dest);
+    }
+  });
+  console.log('✓ Installed config (model routing)');
+}
+
+// Copy the bench recorder into ~/.kiro so the orchestrator can record runs
+// deterministically via `node`, with no dependency on a global npm install.
+const KIRO_BIN_DIR = path.join(AGENTS_DIR, 'bin');
+fs.mkdirSync(KIRO_BIN_DIR, { recursive: true });
+fs.copyFileSync(path.join(PKG_ROOT, 'bin', 'bench.js'), path.join(KIRO_BIN_DIR, 'bench.js'));
+console.log('✓ Installed bench recorder');
+
 // Copy memory files (don't overwrite existing — preserve learned patterns)
 const memoryFiles = ['patterns.json', 'reflections.json'];
 memoryFiles.forEach(file => {

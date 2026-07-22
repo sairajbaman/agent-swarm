@@ -23,6 +23,10 @@ switch (command) {
     status();
     break;
 
+  case 'bench':
+    require('./bench.js').main(process.argv.slice(3));
+    break;
+
   case 'help':
   case '--help':
   case '-h':
@@ -56,6 +60,13 @@ function uninstall() {
       if (fs.existsSync(p)) fs.unlinkSync(p);
     });
     console.log('✓ Removed system prompts');
+  }
+
+  // Remove the bench recorder
+  const benchPath = path.join(AGENTS_DIR, 'bin', 'bench.js');
+  if (fs.existsSync(benchPath)) {
+    fs.unlinkSync(benchPath);
+    console.log('✓ Removed bench recorder');
   }
 
   // Restore default agent
@@ -112,6 +123,7 @@ function help() {
   console.log('  kiro-swarm install     Install/reinstall the swarm');
   console.log('  kiro-swarm uninstall   Remove swarm, restore default agent');
   console.log('  kiro-swarm status      Check installation status');
+  console.log('  kiro-swarm bench       Measure/track performance (record|report|reset)');
   console.log('  kiro-swarm help        Show this help');
   console.log('');
   console.log('After install, open a new kiro-cli chat session.');

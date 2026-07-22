@@ -1,17 +1,24 @@
 {
+  "version": 2,
   "patterns": [],
   "successfulPlans": [],
   "failedPlans": [],
   "bugPatterns": [],
   "architectureTemplates": [],
   "promptImprovements": [],
+  "agentPerformance": {},
   "benchmarks": {
     "totalRuns": 0,
     "avgAgentsPerTask": 0,
     "avgConfidence": 0,
     "successRate": 0,
+    "avgExecutionTimeMs": 0,
     "reviewLoopsTriggered": 0,
-    "consensusUsed": 0
+    "consensusUsed": 0,
+    "customAgentsCreated": 0,
+    "blackboardWrites": 0
   },
+  "runs": [],
+  "taskQueue": [],
   "lastUpdated": null
 }

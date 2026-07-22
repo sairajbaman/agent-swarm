@@ -1,5 +1,22 @@
 # Advanced Swarm Features — Roadmap
 
+## ✅ Recently Shipped (wired into prompts + configs)
+
+These landed in the orchestrator/agent prompts and configs and are live now:
+
+- **Single-source orchestrator prompt** — `swarm-orchestrator.json` now loads `prompts/orchestrator.md` via `systemPrompt` (matching all other agents). The old divergent inline prompt is gone, so behavior no longer drifts from the documented design.
+- **Right-sized teams** — the orchestrator skips the integrator when there's a single producer and skips planner/researcher for clear tasks. Less overhead, faster runs.
+- **Budget ceiling** — hard caps of 20 agents/run and 3 loop iterations to bound cost and latency.
+- **Per-stage model routing** — the orchestrator sets `model` per stage (fast/cheap for research, critique, docs; strongest for coding, review, architecture).
+- **Mandatory verification** — the reviewer now actually runs build/tests/lint and reports real output; failures trigger the `NEEDS_CHANGES` loop.
+- **Safety over autonomy** — removed "never ask permission"; destructive/irreversible actions (force push, `rm -rf`, dropping data, prod/infra changes) now require confirmation, and coder/integrator agents are told to prefer non-destructive commands.
+- **Honest confidence handling** — scores are documented as advisory signals; the enforceable gate is the `NEEDS_CHANGES` review loop, not the number.
+- **Per-run blackboard isolation** — runs are namespaced under `run-<id>/` with one file per parallel writer, preventing clobbering and stale-state leakage.
+- **Language-agnostic prompts** — coder/architect no longer assume TypeScript; they detect and match the project's language and conventions.
+- **Explicit learning write-back** — the orchestrator now writes run patterns to `patterns.json` and notes to `reflections.json` as a final step.
+
+---
+
 ## Phase 1: Can Add NOW (via orchestrator prompt + agent prompts)
 
 These features work within Kiro's existing `subagent` tool by making the orchestrator smarter.
@@ -126,7 +143,7 @@ These features require additional code/tooling beyond prompt engineering.
 
 ---
 
-### 🔨 8. Blackboard Memory (Shared State)
+### ✅ 8. Blackboard Memory (Shared State) — SHIPPED
 
 **Problem:** Currently agents only communicate through the DAG (output → next stage input). They can't share intermediate findings in real-time.
 
@@ -144,7 +161,7 @@ D:/agent swarm/blackboard/
 
 Every agent's prompt includes: "Read `blackboard/` before starting. Write your findings to the relevant blackboard file."
 
-**Status:** Can implement now via file system. Agents already have read/write access.
+**Status:** ✅ Shipped with per-run isolation (`run-<id>/` folders) and one-file-per-parallel-writer to prevent clobbering. See `memory/blackboard/README.md`.
 
 ---
 
@@ -249,8 +266,8 @@ Every agent's prompt includes: "Read `blackboard/` before starting. Write your f
 ### 🚀 13. Agent Marketplace
 Share and install specialist agents from a community registry.
 
-### 🚀 14. Multi-Model Routing  
-Different agents use different models (cheap model for research, expensive for coding).
+### ✅ 14. Multi-Model Routing — SHIPPED (basic)
+Different agents use different models (cheap model for research, expensive for coding). The orchestrator sets the `model` field per `subagent` stage. Basic routing is live; a learned cost/quality policy remains future work.
 
 ### 🚀 15. Distributed Execution
 Agents run on different machines for true horizontal scaling.
@@ -265,16 +282,19 @@ The system A/B tests different prompt versions and keeps winners.
 
 ## Implementation Priority
 
-| Feature | Effort | Impact | Priority |
-|---------|--------|--------|----------|
-| Confidence Scoring | Low (prompt change) | High | NOW |
-| Autonomous Loop (loop_to) | Low (prompt change) | High | NOW |
-| Workspace Awareness | Low (orchestrator reads) | High | NOW |
-| Consensus Engine | Low (pattern addition) | Medium | NOW |
-| Blackboard Memory | Medium (file structure) | High | NEXT |
-| Enhanced Long-Term Learning | Medium (schema update) | High | NEXT |
-| Task Queue | Medium (new file) | Medium | NEXT |
-| Recursive Swarms (workaround) | Medium (larger pipelines) | High | NEXT |
-| Tool Router | High (MCP server) | Medium | LATER |
-| Performance Dashboard | High (TUI component) | Low | LATER |
-| Context Compression | Low (already designed) | High | NOW |
+| Feature | Effort | Impact | Status |
+|---------|--------|--------|--------|
+| Confidence Scoring (advisory) | Low (prompt change) | High | ✅ Shipped |
+| Autonomous Loop (loop_to) | Low (prompt change) | High | ✅ Shipped |
+| Workspace Awareness | Low (orchestrator reads) | High | ✅ Shipped |
+| Consensus Engine | Low (pattern addition) | Medium | ✅ Shipped |
+| Context Compression | Low (already designed) | High | ✅ Shipped |
+| Blackboard Memory (per-run isolation) | Medium (file structure) | High | ✅ Shipped |
+| Model Routing (per-stage) | Low (prompt change) | High | ✅ Shipped |
+| Verification (real build/test) | Low (prompt change) | High | ✅ Shipped |
+| Safety guardrails + budget ceiling | Low (prompt change) | High | ✅ Shipped |
+| Long-Term Learning (write-back) | Medium (schema + write step) | High | 🟡 Wired via prompt; needs real-world validation |
+| Task Queue | Medium (new file) | Medium | ⬜ Next |
+| Recursive Swarms (workaround) | Medium (larger pipelines) | High | ⬜ Next |
+| Tool Router | High (MCP server) | Medium | ⬜ Later |
+| Performance Dashboard | High (TUI component) | Low | ⬜ Later |

@@ -37,12 +37,13 @@ After install, **every new `kiro-cli chat` session** automatically uses the swar
 
 > **🔒 What the installer does (transparency note)**
 >
-> The install script only does three things:
+> The install script only does these things:
 > 1. Copies agent configs and prompts into `~/.kiro/agents/`
-> 2. Initializes an empty memory directory at `~/.kiro/agents/memory/`
-> 3. Sets `swarm-orchestrator` as your default Kiro CLI agent
+> 2. Copies the model-routing config into `~/.kiro/agents/config/` and a small local benchmark recorder into `~/.kiro/agents/bin/`
+> 3. Initializes an empty memory directory at `~/.kiro/agents/memory/`
+> 4. Sets `swarm-orchestrator` as your default Kiro CLI agent
 >
-> That's it. **No network calls. No telemetry. No background processes.** Everything stays inside `~/.kiro/` and is fully reversible with `kiro-swarm uninstall` (or just delete `~/.kiro/agents/swarm-*`).
+> That's it. **No network calls. No background processes.** The only "telemetry" is local-only performance numbers the swarm writes to `~/.kiro/agents/memory/patterns.json` on your own machine — nothing is ever sent anywhere. Everything stays inside `~/.kiro/` and is fully reversible with `kiro-swarm uninstall` (or just delete `~/.kiro/agents/swarm-*`).
 >
 > You can audit the entire install: [`install.sh`](install.sh) (29 lines) | [`install.ps1`](install.ps1) (42 lines) | [`bin/install.js`](bin/install.js) (npm postinstall)
 
@@ -51,7 +52,12 @@ After install, **every new `kiro-cli chat` session** automatically uses the swar
 kiro-swarm status      # Check if swarm is active
 kiro-swarm install     # Reinstall/update
 kiro-swarm uninstall   # Remove swarm, restore default
+kiro-swarm bench       # Measure performance: report | record | reset
 ```
+
+**Make it faster & self-improving:**
+- **Model routing** — edit `~/.kiro/agents/config/model-routing.json` to map roles to model tiers (fast model for research/critique/docs, strongest for coding/review). The orchestrator sets the model per stage. Biggest speed/cost lever, zero infra.
+- **Benchmarks** — the orchestrator records every run (`kiro-swarm bench record ...`) into `patterns.json`, so `kiro-swarm bench report` shows real success rate, avg agents/task, and execution time. The swarm right-sizes future teams against this data instead of guessing.
 
 ---
 

@@ -1,0 +1,19 @@
+{
+  "_comment": "Maps each swarm role to a model tier. The orchestrator reads this and sets the `model` field per subagent stage. Fill in the tier values with model identifiers available in YOUR Kiro environment (run your provider's model list). Leave a tier null to inherit the session default — safe out of the box, so nothing breaks until you opt in.",
+  "tiers": {
+    "fast": null,
+    "standard": null,
+    "strong": null
+  },
+  "roleToTier": {
+    "swarm-researcher": "fast",
+    "swarm-critic": "fast",
+    "swarm-writer": "fast",
+    "swarm-planner": "fast",
+    "swarm-reviewer": "standard",
+    "swarm-coder": "strong",
+    "swarm-architect": "strong",
+    "swarm-integrator": "strong"
+  },
+  "notes": "Rationale: light roles (research, critique, docs, planning) run well on a fast/cheap model; code review is mid; code, architecture, and integration get the strongest model. This is the biggest speed+cost lever with zero infrastructure. Tune freely."
+}
